@@ -16,6 +16,8 @@ class EchoHandler(socketserver.DatagramRequestHandler):
         if line[0] == 'REGISTER':
             self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
             self.clients[line[1][4:]] = self.client_address[0]
+            if line[3] == 'Expires:' and line[4] == '0':
+                del self.clients[line[1][4:]]
         else:
             print("El cliente", self.client_address, "nos manda:", ' '.join(line))
         print(self.clients)
