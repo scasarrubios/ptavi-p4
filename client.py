@@ -13,6 +13,8 @@ try:
     PORT = int(sys.argv[2])
     line = ' '.join(sys.argv[3:5])
     expires = sys.argv[5]
+    name = sys.argv[4]
+    int(expires)
 except:
     sys.exit("Usage: client.py ip puerto register sip_address expires_value")
 
@@ -21,8 +23,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
     my_socket.connect((SERVER, PORT))
     print("Enviando:", line)
     if sys.argv[3] == 'register':
-         line = "REGISTER sip:" + sys.argv[4] + " SIP/2.0\r\nExpires: "+ expires + "\r\n"
-    my_socket.send(bytes(line, 'utf-8') + b'\r\n')
+        line = "REGISTER sip:" + name + " SIP/2.0\r\nExpires: " + expires
+    my_socket.send(bytes(line, 'utf-8') + b'\r\n\r\n')
     data = my_socket.recv(1024)
     print('Recibido -- ', data.decode('utf-8'))
 
