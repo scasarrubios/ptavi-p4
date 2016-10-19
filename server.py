@@ -64,7 +64,6 @@ class EchoHandler(socketserver.DatagramRequestHandler):
         else:
             print("El cliente", self.client_address, "nos manda:", ' '.join(line))
         print(self.clients)
-        print(time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(time.time())))
 
 if __name__ == "__main__":
     serv = socketserver.UDPServer(('', int(sys.argv[1])), EchoHandler)
