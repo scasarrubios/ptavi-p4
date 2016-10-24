@@ -48,10 +48,8 @@ class EchoHandler(socketserver.DatagramRequestHandler):
         try:
             with open('registered.json') as data_file:
                 self.clients = json.load(data_file)
-            print('primera:', self.clients)
         except:
             self.no_file = True
-            print(self.no_file)
 
     def handle(self):
         self.json2register()
@@ -70,7 +68,6 @@ class EchoHandler(socketserver.DatagramRequestHandler):
                 self.clients[line[1][4:]] = data
             self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
             self.register2json()
-        print(self.clients)
 
 if __name__ == "__main__":
     serv = socketserver.UDPServer(('', int(sys.argv[1])), EchoHandler)
