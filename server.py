@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-Programa servidor SIP
+Programa servidor UDP-SIP
 """
 
 import socketserver
@@ -53,7 +53,6 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 
     def handle(self):
         self.json2register()
-        self.wfile.write(b" ")
         line = self.rfile.read().decode('utf-8').split()
         self.caducity_check(line)
         if line[0] == 'REGISTER':
@@ -71,7 +70,7 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 
 if __name__ == "__main__":
     serv = socketserver.UDPServer(('', int(sys.argv[1])), EchoHandler)
-    print("Lanzando servidor UDP de eco...")
+    print("Lanzando servidor UDP-SIP de eco...")
     try:
         serv.serve_forever()
     except KeyboardInterrupt:
